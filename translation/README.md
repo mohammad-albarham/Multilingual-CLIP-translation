@@ -17,7 +17,7 @@ python 01_ccs_to_df.py
 Now translate captions from English -> Swedish. Will take about ~26 hours to translate 12.5 million captions with an RTX 3090.
 
 ```bash
-python 01_translate_sv.py
+python 01_translate_ar.py
 ```
 
 ### Step 2: Multilingual captions
