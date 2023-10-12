@@ -64,6 +64,8 @@ logger.info(f"The model loaded on the following device: {model.device}")
 
 model.eval()
 
+if torch.cuda.device_count() > 1:
+    model = torch.nn.DataParallel(model)
 
 def custom_collate_fn(data):
     """
