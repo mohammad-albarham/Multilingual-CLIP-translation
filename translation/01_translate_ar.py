@@ -19,8 +19,8 @@ logger.info(f"total dataset size is {len(df)}")
 
 # Total dataset => 12,556,500
 
-index_min = 8000000
-index_max = 10000000
+index_min = 12000000
+index_max = 12556500
 
 df = df[index_min:index_max]
 # df = df[:10]
@@ -93,7 +93,7 @@ test_dataloader = DataLoader(
     test_data,
     batch_size=256,
     shuffle=False,
-    num_workers=32,
+    # num_workers=32,
     collate_fn=custom_collate_fn,
 )
 
@@ -112,10 +112,13 @@ with torch.no_grad():
 
 df["caption_ar"] = decoded_tokens
 
+
+df.reset_index(drop=True, inplace=True)
+
+
 df.to_csv(f"data/ccs_synthetic_ar_{index_min}_{index_max}.csv")
 logger.info(f"Saving csv file as ccs_synthetic_ar_{index_min}_{index_max}.csv")
 
-df.reset_index(drop=True, inplace=True)
 
 df.to_feather(f"data/ccs_synthetic_ar_{index_min}_{index_max}.feather")
 logger.info(f"Saving feather file as ccs_synthetic_ar_{index_min}_{index_max}.feather")
