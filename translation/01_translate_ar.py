@@ -1,10 +1,8 @@
 import pandas as pd
 import torch
 from tqdm import tqdm
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, DataCollatorWithPadding
 from torch.utils.data import Dataset, DataLoader
 from transformers import MarianMTModel, MarianTokenizer
-import rich
 from logger import logger
 
 # Importing the dataset 
@@ -12,18 +10,13 @@ df = pd.read_feather("data/results_phase_1/ccs_synthetic.feather")
 
 logger.info(f"total dataset size is {len(df)}")
 
-
-# We will translate 1/6 of the dataset
-
-# 2092750
-
 # Total dataset => 12,556,500
 
-index_min = 12000000
-index_max = 12556500
+index_min = 0
+index_max = 2000000
 
 df = df[index_min:index_max]
-# df = df[:10]
+# df = df[:10] # Debugging only
 
 logger.info(f"Starting translation from {index_min} to {index_max}")
 
@@ -95,7 +88,6 @@ test_dataloader = DataLoader(
     test_data,
     batch_size=256,
     shuffle=False,
-    # num_workers=32,
     collate_fn=custom_collate_fn,
 )
 

@@ -1,9 +1,5 @@
 #%%
 import pandas as pd
-import torch
-from tqdm import tqdm
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, DataCollatorWithPadding
-from torch.utils.data import Dataset, DataLoader
 
 df = pd.read_feather("data/ccs_synthetic.feather")
 
@@ -21,7 +17,6 @@ df.loc[0 + 10, "caption"]
 print(len(df) / 6)
 
 # %%
-
 # 2092750
 
 #%%
@@ -36,16 +31,12 @@ df
 # %%
 import json
 
-
 def write_jsonl(df, output_file):
     with open(output_file, "w") as file:
-        for index, row in df.iterrows():
+        for _, row in df.iterrows():
             # Convert each row to a dictionary and write it as a JSON line
             json.dump(row.to_dict(), file)
             file.write("\n")
-
-
 # %%
 write_jsonl(df, "ccs_synthetic_ar_1M.jsonl")
 
-# %%
